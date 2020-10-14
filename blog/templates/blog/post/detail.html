@@ -1,0 +1,71 @@
+{% extends "blog/base.html" %}
+{% block title %}{{ post.title }}{% endblock %} 
+
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<p class="date">Published {{ post.publish }} by {{ post.author }}</p>
+
+
+
+{{ post.body|safe }}
+
+<br>
+<br>
+
+<p>
+    <a href="{% url 'blog:post_share' post.id %}">Share this post</a>
+</p>
+
+<p>
+<a href="{% url 'blog:update_post' post.id %}">Update the post</a>
+</p>
+
+<p>
+        <a href="{% url 'blog:delete_post' post.id %}">Delete the post</a>
+        </p>
+        
+
+<br/>
+<br/>
+<hr>
+<br/>
+<form action="{% url 'blog:like_post' post.id %}" method="POST">
+{% csrf_token %}
+<button type="submit" value="{{ post.id }}" class="btn btn-primary btn-sm" >Like</button> - {{ total_likes }} Likes
+</form> 
+
+
+
+    {% with comments.count as total_comments %}
+    <h2>
+        {{ total_comments }} comment {{ total_comments|pluralize }}
+    </h2>
+    {% endwith %}
+
+    {% for comment in comments %}
+    <div class = 'comment'>
+        <p class = 'info'>
+            Comment {{ forloop.counter }} by {{ comment.author}} {{ comment.created }}
+
+        </p>
+        {{ comment.body|linebreaks }}
+    </div>
+{% empty %}
+<p>
+    There are no new comments yet.
+</p>
+{% endfor %}
+{% if new_comment %}
+<h2>Your comment has been added</h2>
+{% else %}
+<h2>Add new comment</h2>
+<form action="" method="post">
+{% csrf_token %}
+{{ comment_form.as_p }}
+<p><input type="submit" value="Add comment"></p>
+    </form>
+{% endif %}
+{% endblock %}
+
+

@@ -1,0 +1,52 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block title %}
+<h2>My Blog</h2>
+{% endblock %}
+
+
+
+{% block content %}
+
+	<div id="main">
+		
+			<div class="inner">
+				<header>
+					<h1>Создан людьми, искренне увлеченными миром творчества. Присоединяйтесь!</h1>
+					<p>Etiam quis viverra lorem, in semper lorem. Sed nisl arcu euismod sit amet nisi euismod sed cursus arcu elementum ipsum arcu vivamus quis venenatis orci lorem ipsum et magna feugiat veroeros aliquam. Lorem ipsum dolor sit amet nullam dolore.</p>
+				</header>
+
+
+
+            <section class="tiles">
+							{% for post in posts %}
+                                <article class="style4">
+									<span class="image">
+									<img src="{% static 'blog/images/pic01.jpg' %}" alt="" />
+									</span>
+									<a href="{{ post.get_absolute_url }}">
+										<h2>{{ post.title }}</h2>
+										<div class="content">
+											<p>
+												Published {{ post.publish }} by {{ post.author }}{{ post.body|truncatewords:30}}
+											</p>
+										</div>
+									</a>
+								</article>
+
+                            {% endfor %}
+ 			</section>
+			 <br/>
+			 <br/>
+			 <hr>
+			 <br/>
+    {% include "blog/pagination.html" with page=posts %}
+
+
+    {% endblock %}
+
+
+
+
+						</div>
+					</div>

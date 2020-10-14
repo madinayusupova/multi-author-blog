@@ -1,0 +1,14 @@
+{% extends "blog/base.html" %}
+{% block title %}
+Update Post
+{% endblock %}
+
+{% block content %}
+<h2>Update POST</h2>
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+    <input type="submit" value="Update">
+</form>
+{% endblock %}

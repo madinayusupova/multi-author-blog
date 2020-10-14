@@ -1,0 +1,15 @@
+{% extends "blog/base.html" %}
+{% block title %}
+Crate Post
+{% endblock %}
+
+
+{% block content %}
+<h2>NEW POST</h2>
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+    <input type="submit" value="Create">
+</form>
+{% endblock %}

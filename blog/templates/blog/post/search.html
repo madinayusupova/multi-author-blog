@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+{% block title %}
+Search Results{% endblock %}
+
+{% block content %}
+
+<h1>Search Results</h1> <h2>for {{ query }}...</h2>
+
+{% if text %}
+<h3>{{ text }}</h3>
+{% endif %}
+
+
+<ul>
+  {% for post in object_list %}
+    <li>
+        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
+
+
+{% endblock %}
